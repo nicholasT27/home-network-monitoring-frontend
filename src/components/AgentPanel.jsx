@@ -18,7 +18,7 @@ export default function AgentPanel({ status }) {
           <pre className="code">{settings}</pre>
           <button className="btn small" onClick={() => copy(settings, 'settings')}>{copied === 'settings' ? 'Copied' : 'Copy'}</button>
         </li>
-        <li>Run <code>php agent.php</code> and leave it open. This panel turns <strong>Online</strong>.</li>
+        <li>Run <code>sudo php agent.php</code> and leave it open (on Windows, open the terminal as Administrator and run <code>php agent.php</code>). The first line should say <strong>ARP check: ON</strong>, so that devices which ignore pings are found too; without administrator rights it says OFF and the agent still works with pings only. This panel turns <strong>Online</strong>.</li>
       </ol>
       <p className="muted small">Keep your agent key private: it lets a program send data to your account.</p>
     </section>
