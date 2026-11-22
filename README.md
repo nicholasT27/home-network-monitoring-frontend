@@ -12,6 +12,8 @@ Browser ──► Dashboard (this repo, static files on Cloudflare Pages)
             Backend (PHP + MySQL)  ◄── home agent running on a computer at home
 ```
 
+**To download and operate the whole system, follow the step-by-step guide in the backend repository's README: [Quick start](https://github.com/nicholasT27/home-network-monitoring-backend#quick-start-download-and-operate-the-system).** The live dashboard is at https://home-network-monitoring-frontend.pages.dev.
+
 ## What the dashboard does
 
 - Sign up and sign in (each account sees only its own devices).
