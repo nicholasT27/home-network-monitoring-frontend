@@ -16,7 +16,7 @@ export default function AgentPanel({ status }) {
       <p className="muted small">A website cannot see inside your home network, so a small agent must run on a computer connected to your router. It scans your network and sends the results here. It only makes outgoing connections.</p>
       <ol className="steps small">
         <li>On that computer install <strong>PHP</strong> and download the <strong>home-network-monitoring-backend</strong> project from GitHub.</li>
-        <li>In that folder, create a file named <code>.env</code> with these two lines:
+        <li>In that folder, open the file named <code>.env</code> and replace its two lines with these two lines:
           <pre className="code">{settings}</pre>
           <button className="btn small" onClick={() => copy(settings, 'settings')}>{copied === 'settings' ? 'Copied' : 'Copy'}</button>
         </li>
