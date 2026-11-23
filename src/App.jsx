@@ -71,6 +71,7 @@ function Dashboard({ onSignedOut }) {
   const trusted = devices.filter((d) => d.status === 'trusted').length;
   const unknown = devices.filter((d) => d.status === 'unknown').length;
   const suspicious = devices.filter((d) => d.suspicious).length;
+  const needsRange = Boolean(status) && !status.subnet;
   const last = status?.last_scan;
   const target = status?.scan_target_s ?? 120;
   const lastSecs = last ? last.duration_ms / 1000 : null;
@@ -81,19 +82,25 @@ function Dashboard({ onSignedOut }) {
         <div>
           <h1>Home Network Monitor</h1>
           <p className="muted small">
-            {status ? <>{status.email} · network <span className="mono">{status.subnet}</span>{status.mode === 'demo' && ' · demo data'}
+            {status ? <>{status.email} · network <span className="mono">{status.subnet || 'not set yet'}</span>{status.mode === 'demo' && ' · demo data'}
               {status.mode === 'agent' && <> · home agent <strong className={status.agent_online ? 'agent-on' : 'agent-off'}>{status.agent_online ? 'online' : 'offline'}</strong></>}</> : 'Connecting…'}
             {last && <> · last scan <span title={fullTime(last.started_at)}>{timeAgo(last.started_at)}</span> ({lastSecs.toFixed(1)}s of {target}s target)</>}
           </p>
         </div>
         <div className="top-actions">
-          <button className="btn primary" onClick={scan} disabled={scanning}>
+          <button className="btn primary" onClick={scan} disabled={scanning || needsRange} title={needsRange ? 'Enter your network range first' : undefined}>
             {scanning ? <RefreshCw size={16} className="spin" /> : <Radar size={16} />} {scanning ? 'Scanning…' : 'Scan now'}
           </button>
           <button className="btn" onClick={() => { setToken(''); onSignedOut(); }}><LogOut size={16} /> Sign out</button>
         </div>
       </header>
 
+      {needsRange && (
+        <p className="banner warn" role="status">
+          <strong>First step:</strong> enter your home network range (for example 192.168.0.0/24) in the “Network &amp; alerts” box and click Save network. Scanning starts after that.{' '}
+          <a href="#settings-h" onClick={() => setTimeout(() => document.getElementById('subnet')?.focus(), 300)}>Go to the box</a>
+        </p>
+      )}
       {error && <p className="banner error" role="alert">{error}</p>}
       {notice && <p className="banner ok" role="status">{notice}</p>}
 

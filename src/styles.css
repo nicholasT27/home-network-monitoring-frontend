@@ -35,6 +35,8 @@ input:focus-visible { outline-offset: 0; }
 .banner { padding: 10px 14px; border-radius: 8px; margin-bottom: 14px; border: 1px solid; }
 .banner.error { background: #2a1517; border-color: #5b2a2e; }
 .banner.ok { background: #10261f; border-color: #1f5a46; color: var(--ok); }
+.banner.warn { background: #2a2412; border-color: #6b5a1f; }
+.banner.warn a { color: inherit; text-decoration: underline; }
 
 .tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 18px; }
 .tile { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; }

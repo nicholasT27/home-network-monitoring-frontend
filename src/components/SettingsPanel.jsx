@@ -19,7 +19,7 @@ export default function SettingsPanel({ status, onSaved }) {
     e.preventDefault();
     try {
       await api.saveSettings({ subnet });
-      setNetNote({ text: subnet.trim() ? `Network range saved. Scans will now look at ${networkAddress(subnet)}.` : 'Network range cleared. The default range will be used.' });
+      setNetNote({ text: subnet.trim() ? `Network range saved. Scans will now look at ${networkAddress(subnet)}. You can click Scan now.` : 'Network range cleared. Enter a range before you scan.' });
       onSaved();
     } catch (err) { setNetNote({ text: err.message, error: true }); }
   }
