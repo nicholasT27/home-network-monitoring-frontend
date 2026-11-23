@@ -33,7 +33,7 @@ npm install
 npm run dev
 ```
 
-**4. Open http://localhost:5173**, click **Create an account**, and sign in. To see the devices on your network you also run the home agent: follow the steps in the [backend README](https://github.com/nicholasT27/home-network-monitoring-backend#steps-for-a-new-user).
+**4. Open http://localhost:5173** and sign in with the test account: email `test@gmail.com`, password `test12345`. (Or click **Create an account** to use your own.) To see the devices on your network you also run the home agent: follow the steps in the [backend README](https://github.com/nicholasT27/home-network-monitoring-backend#steps-for-a-new-user).
 
 | Sign in | Create an account |
 |---|---|
