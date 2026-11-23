@@ -64,7 +64,7 @@ export default function SettingsPanel({ status, onSaved }) {
 
       <form className="settings-form" onSubmit={saveEmail}>
         <label htmlFor="alert-email"><Mail size={14} aria-hidden="true" /> Email for alerts</label>
-        <input id="alert-email" type="email" value={email} onChange={(e) => { setEmail(e.target.value); setMailNote(null); }} placeholder="you@example.com" />
+        <input id="alert-email" type="email" value={email} onChange={(e) => { setEmail(e.target.value); setMailNote(null); }} placeholder="test@gmail.com" />
         <p className="muted small">An email is sent when a new unknown or suspicious device is detected, even if the dashboard is closed.</p>
         <div className="row">
           <button className="btn primary">Save email</button>
