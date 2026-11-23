@@ -22,6 +22,7 @@ export default function SettingsPanel({ status, onSaved }) {
       onSaved();
     } catch (err) { setNetNote({ text: err.message, error: true }); }
   }
+  // This function saves the email address that alerts are sent to.
   async function saveEmail(e) {
     e.preventDefault();
     try {
@@ -32,6 +33,7 @@ export default function SettingsPanel({ status, onSaved }) {
       onSaved();
     } catch (err) { setMailNote({ text: err.message, error: true }); }
   }
+  // This function sends a test email, so you can check that alerts will arrive.
   async function sendTest() {
     setTesting(true);
     setMailNote(null);
