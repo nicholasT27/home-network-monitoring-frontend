@@ -1,9 +1,13 @@
 # Home Network Monitor: Dashboard (frontend)
 
-The web dashboard of the **Home Network Device Monitoring and Alert System**. Users create an account, see which devices are on their home network, mark the ones they recognise as **Trusted**, and get alerts when an **Unknown** or **Suspicious** device appears.
+![Dashboard](docs/images/08-new-unknown-device.png)
 
-This repository is only the dashboard (React + Vite). It talks to the backend over HTTPS, so you need the backend running somewhere:
+The web dashboard of the **Home Network Device Monitoring and Alert System** (React + Vite), a student project for the CSN Project (TSN309/10) at Wawasan Open University. People create an account, see which devices are on their home network, mark the ones they recognise as **Trusted**, and get alerts when an **Unknown** or **Suspicious** device appears.
+
+This repository is only the dashboard. It talks to the backend over HTTPS, so you also need the backend:
 **[home-network-monitoring-backend](https://github.com/nicholasT27/home-network-monitoring-backend)** (PHP API, database and the home agent that scans the network).
+
+**Live system (for marking):** https://home-network-monitoring-frontend.pages.dev
 
 ```
 Browser ──► Dashboard (this repo, static files on Cloudflare Pages)
@@ -12,28 +16,50 @@ Browser ──► Dashboard (this repo, static files on Cloudflare Pages)
             Backend (PHP + MySQL)  ◄── home agent running on a computer at home
 ```
 
-**To download and operate the whole system, follow the step-by-step guide in the backend repository's README: [Quick start](https://github.com/nicholasT27/home-network-monitoring-backend#quick-start-download-and-operate-the-system).** The live dashboard is at https://home-network-monitoring-frontend.pages.dev.
+## Install and run on your computer
+
+You need **Node.js 20.19+ or 22** ([nodejs.org](https://nodejs.org); check with `node -v`) and the backend running (see the backend README, "Option A: quick demo", which takes about five minutes and needs no router or email).
+
+**1. Download this repository:** on the GitHub page click the green **Code** button, then **Download ZIP**, and unzip it (or `git clone https://github.com/nicholasT27/home-network-monitoring-frontend.git`).
+
+**2. Start the backend** in the backend folder (first time: copy `.env.example` to `.env` and set `SCAN_MODE=demo`):
+
+```bash
+php -S 127.0.0.1:8081 router.php
+```
+
+**3. Start the dashboard** in this folder:
+
+```bash
+npm install
+cp .env.example .env        # Windows: copy .env.example .env  (it already points at http://127.0.0.1:8081)
+npm run dev
+```
+
+**4. Open http://localhost:5173**, click **Create an account**, then **Scan now**.
+
+| Sign in | Create an account |
+|---|---|
+| ![Sign in](docs/images/01-sign-in.png) | ![Create an account](docs/images/02-create-account.png) |
+
+To scan a real network instead of the demo data, run the home agent as described in the backend README ("Option B"). The **Home agent** panel in the dashboard shows the two lines the agent needs and turns **Online** when it runs.
 
 ## What the dashboard does
 
 - Sign up and sign in (each account sees only its own devices).
-- Device list with Online/Offline, Trusted/Unknown/Suspicious labels, search and filters, rename, history and remove.
 - **Scan now**, summary tiles, active alerts and recent activity.
+- Device list with Online/Offline, Trusted/Unknown/Suspicious labels, search and filters, rename, history and remove.
 - **Network & alerts**: set the network range to scan and the email address for alerts (each with its own Save button), and send a test email.
-- **Home agent** panel: shows whether the agent at home is online and the two lines the agent needs.
+- **Home agent** panel: whether the agent at home is online, and the two lines it needs.
 
-## Run it on your computer (development)
+![Scan requested](docs/images/06-scan-waiting.png)
+![Scan finished](docs/images/07-scan-finished.png)
 
-You need [Node.js](https://nodejs.org) 20.19+ or 22 and a running backend (see the backend repository; `php -S 127.0.0.1:8081 router.php` is enough for testing).
+| Network and alerts | Home agent | Active alerts |
+|---|---|---|
+| ![Network and alerts](docs/images/03-network-and-email.png) | ![Home agent](docs/images/05-home-agent-panel.png) | ![Active alerts](docs/images/09-active-alerts.png) |
 
-```bash
-npm install
-cp .env.example .env        # Windows: copy .env.example .env
-# edit .env so VITE_API_BASE_URL points at your backend, e.g. http://127.0.0.1:8081
-npm run dev                 # http://localhost:5173
-```
-
-The backend must allow the dashboard's address: in the backend's `.env`, `ALLOWED_ORIGINS` can stay empty for `http://localhost:5173` (allowed by default); for any other address add it there.
+![Device list and history](docs/images/10-devices-and-history.png)
 
 ## Build
 
@@ -85,6 +111,7 @@ The dashboard is served over HTTPS, so browsers refuse to call a backend over pl
 ```
 index.html  vite.config.js  package.json  .node-version  .env.example
 public/config.js            optional override of the backend address (no rebuild needed)
+docs/images/               screenshots used in this README
 src/
   main.jsx  App.jsx         app shell: sign-in gate, polling, scan button
   api.js                    all calls to the backend, token handling
