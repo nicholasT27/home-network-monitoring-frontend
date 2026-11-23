@@ -2,73 +2,55 @@
 
 ![Dashboard](docs/images/08-new-unknown-device.png)
 
-The web dashboard of the **Home Network Device Monitoring and Alert System** (React + Vite), a student project for the CSN Project (TSN309/10) at Wawasan Open University. People create an account, see which devices are on their home network, mark the ones they recognise as **Trusted**, and get alerts when an **Unknown** or **Suspicious** device appears.
+The web dashboard of the Home Network Device Monitoring and Alert System. You sign in, see which devices are on your home network, mark the ones you recognise as **Trusted**, and get alerts when an **Unknown** device appears. The part that scans the network is in the [backend repository](https://github.com/nicholasT27/home-network-monitoring-backend).
 
-This repository is only the dashboard. It talks to the backend over HTTPS, so you also need the backend:
-**[home-network-monitoring-backend](https://github.com/nicholasT27/home-network-monitoring-backend)** (PHP API, database and the home agent that scans the network).
+**Just want to use it?** Open the live dashboard: https://home-network-monitoring-frontend.pages.dev, then follow the **Steps for a new user** in the [backend README](https://github.com/nicholasT27/home-network-monitoring-backend#steps-for-a-new-user).
 
-**Live system (for marking):** https://home-network-monitoring-frontend.pages.dev
+## Run the dashboard on your computer
 
-```
-Browser ──► Dashboard (this repo, static files on Cloudflare Pages)
-               │  HTTPS, address set by VITE_API_BASE_URL
-               ▼
-            Backend (PHP + MySQL)  ◄── home agent running on a computer at home
-```
+You need [Node.js](https://nodejs.org) 20.19+ or 22 (check with `node -v`) and the backend running (see "Try it on one computer" in the backend README).
 
-## Install and run on your computer
+**1. Download this project.** Click the green **Code** button, then **Download ZIP**, and unzip it.
 
-You need **Node.js 20.19+ or 22** ([nodejs.org](https://nodejs.org); check with `node -v`) and the backend running (see the backend README, "Option A: quick demo", which takes about five minutes and needs no router or email).
-
-**1. Download this repository:** on the GitHub page click the green **Code** button, then **Download ZIP**, and unzip it (or `git clone https://github.com/nicholasT27/home-network-monitoring-frontend.git`).
-
-**2. Start the backend** in the backend folder (first time: copy `.env.example` to `.env` and set `SCAN_MODE=demo`):
-
-```bash
-php -S 127.0.0.1:8081 router.php
-```
-
-**3. Start the dashboard** in this folder:
+**2. Install and start it.** Open a terminal in the unzipped folder:
 
 ```bash
 npm install
-cp .env.example .env        # Windows: copy .env.example .env  (it already points at http://127.0.0.1:8081)
+cp .env.example .env        # Windows: copy .env.example .env
 npm run dev
 ```
 
-**4. Open http://localhost:5173**, click **Create an account**, then **Scan now**.
+**3. Open http://localhost:5173**, click **Create an account**, then **Scan now**.
 
 | Sign in | Create an account |
 |---|---|
 | ![Sign in](docs/images/01-sign-in.png) | ![Create an account](docs/images/02-create-account.png) |
 
-To scan a real network instead of the demo data, run the home agent as described in the backend README ("Option B"). The **Home agent** panel in the dashboard shows the two lines the agent needs and turns **Online** when it runs.
-
-## What the dashboard does
-
-- Sign up and sign in (each account sees only its own devices).
-- **Scan now**, summary tiles, active alerts and recent activity.
-- Device list with Online/Offline, Trusted/Unknown/Suspicious labels, search and filters, rename, history and remove.
-- **Network & alerts**: set the network range to scan and the email address for alerts (each with its own Save button), and send a test email.
-- **Home agent** panel: whether the agent at home is online, and the two lines it needs.
-
-![Scan requested](docs/images/06-scan-waiting.png)
-![Scan finished](docs/images/07-scan-finished.png)
+## What you see
 
 | Network and alerts | Home agent | Active alerts |
 |---|---|---|
 | ![Network and alerts](docs/images/03-network-and-email.png) | ![Home agent](docs/images/05-home-agent-panel.png) | ![Active alerts](docs/images/09-active-alerts.png) |
 
-![Device list and history](docs/images/10-devices-and-history.png)
+- **Scan now** (top right) starts a scan; the banner shows when it is finished.
+- The five tiles count devices, online, trusted, unknown and suspicious.
+- In the device list, **Trust** marks a device as known; the pencil renames it, the clock shows its history, the bin removes it.
+- **Network & alerts** sets the network range and the email address for alerts.
 
-## Build
+![Scan finished](docs/images/07-scan-finished.png)
+
+---
+
+# For developers
+
+### Build
 
 ```bash
 npm run build               # writes the static site to dist/
 npm run preview             # serves dist/ on http://localhost:4173 to check it
 ```
 
-## Deploy on Cloudflare Pages
+### Deploy on Cloudflare Pages
 
 Cloudflare Pages hosts the static dashboard for free. (It cannot run the PHP backend; that goes on a PHP host, see the backend repository.)
 
@@ -92,11 +74,11 @@ Cloudflare Pages hosts the static dashboard for free. (It cannot run the PHP bac
 
 Every push to `main` redeploys the dashboard automatically. If you change `VITE_API_BASE_URL`, redeploy (the value is read when the site is built). To change the backend address without rebuilding, edit `public/config.js` instead (see the comments in that file).
 
-### Using Cloudflare with a backend that is not on HTTPS
+#### Using Cloudflare with a backend that is not on HTTPS
 
 The dashboard is served over HTTPS, so browsers refuse to call a backend over plain `http://` (mixed content). Give the backend an `https://` address (most hosts offer a free certificate).
 
-## Troubleshooting
+### Troubleshooting
 
 | What you see | Cause and fix |
 |---|---|
@@ -106,7 +88,7 @@ The dashboard is served over HTTPS, so browsers refuse to call a backend over pl
 | The API answers with an HTML page instead of JSON | The host is putting a security page in front of the API (some free hosts do this). Open the API address in a browser and see the backend README, section "Choosing a host". |
 | Build fails on Cloudflare | Check the build log; make sure the build command is `npm run build` and the output directory is `dist`. |
 
-## Project layout
+### Project layout
 
 ```
 index.html  vite.config.js  package.json  .node-version  .env.example
