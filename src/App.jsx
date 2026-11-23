@@ -12,6 +12,7 @@ import Tile from './components/Tile.jsx';
 
 const POLL_MS = 15000;
 
+// This function waits until the home agent has finished the scan.
 async function waitForAgentScan(previousId) {
   for (let i = 0; i < 60; i++) {
     await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -21,6 +22,7 @@ async function waitForAgentScan(previousId) {
   throw new Error('The home agent did not answer. Is agent.php running on your home computer?');
 }
 
+// This function shows the main dashboard page.
 function Dashboard({ onSignedOut }) {
   const [devices, setDevices] = useState([]);
   const [alerts, setAlerts] = useState([]);
@@ -45,13 +47,13 @@ function Dashboard({ onSignedOut }) {
     return () => clearInterval(id);
   }, [load]);
 
+  // This function starts a scan and shows the result.
   async function scan() {
     setScanning(true);
     setNotice('');
     try {
       let r = await api.scan();
       if (r.queued) {
-        // Cloud mode: the home agent picks the request up, scans, and uploads the result.
         setNotice('Scan requested. Waiting for the home agent…');
         r = await waitForAgentScan(status?.last_scan?.id ?? null);
       }
@@ -116,6 +118,7 @@ function Dashboard({ onSignedOut }) {
   );
 }
 
+// This function decides whether to show the sign in page or the dashboard.
 export default function App() {
   const [signedIn, setSignedIn] = useState(() => Boolean(getToken()));
   useEffect(() => { setUnauthorizedHandler(() => { setToken(''); setSignedIn(false); }); }, []);

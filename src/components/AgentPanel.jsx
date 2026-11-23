@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { Cpu } from 'lucide-react';
 import { API_URL } from '../api.js';
 
+// This function shows the home agent's address and personal key, with copy buttons.
 export default function AgentPanel({ status }) {
   const [copied, setCopied] = useState('');
   const settings = `AGENT_API_URL=${new URL(API_URL, window.location.href).href}\nAGENT_KEY=${status.agent_key}`;
+  // This function copies text to the clipboard.
   async function copy(text, what) {
-    try { await navigator.clipboard.writeText(text); setCopied(what); setTimeout(() => setCopied(''), 2000); } catch { /* clipboard unavailable */ }
+    try { await navigator.clipboard.writeText(text); setCopied(what); setTimeout(() => setCopied(''), 2000); } catch { }
   }
   return (
     <section className="card" aria-labelledby="agent-h">

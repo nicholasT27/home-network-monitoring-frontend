@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ShieldCheck } from 'lucide-react';
 import { api, setToken } from '../api.js';
 
+// This function shows the sign in and create account form.
 export default function Login({ onSignedIn }) {
   const [mode, setMode] = useState('login');
   const [email, setEmail] = useState('');
@@ -10,6 +11,7 @@ export default function Login({ onSignedIn }) {
   const [busy, setBusy] = useState(false);
   const registering = mode === 'register';
 
+  // This function signs in or creates the account.
   async function submit(e) {
     e.preventDefault();
     setBusy(true);

@@ -1,5 +1,6 @@
 import { EVENT_TEXT, fullTime, timeAgo } from '../format.js';
 
+// This function shows the recent activity.
 export default function ActivityPanel({ events }) {
   return (
     <section className="card" aria-labelledby="activity-h">

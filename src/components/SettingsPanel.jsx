@@ -4,16 +4,17 @@ import { api } from '../api.js';
 import { networkAddress } from '../format.js';
 import Note from './Note.jsx';
 
+// This function shows the network range and alert email settings.
 export default function SettingsPanel({ status, onSaved }) {
   const [subnet, setSubnet] = useState(status?.subnet || '');
   const [email, setEmail] = useState(status?.alert_email || '');
   const [netNote, setNetNote] = useState(null);
   const [mailNote, setMailNote] = useState(null);
   const [testing, setTesting] = useState(false);
-  // Follow the server's values (e.g. after a save or a reload) without resetting the messages.
   useEffect(() => { setSubnet(status.subnet || ''); }, [status.subnet]);
   useEffect(() => { setEmail(status.alert_email || ''); }, [status.alert_email]);
 
+  // This function saves the network range to scan.
   async function saveNetwork(e) {
     e.preventDefault();
     try {

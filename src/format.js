@@ -1,6 +1,6 @@
-// The API returns UTC "YYYY-MM-DD HH:MM:SS" timestamps.
 export const parseTime = (s) => (s ? new Date(`${s.replace(' ', 'T')}Z`) : null);
 
+// This function turns a time into words like '5 minutes ago'.
 export function timeAgo(s) {
   const d = parseTime(s);
   if (!d) return 'never';
@@ -25,7 +25,7 @@ export const EVENT_TEXT = {
   mac_rotated: 'MAC address rotated, same hostname',
 };
 
-// Mirrors what the server saves: "192.168.0.124/24" -> "192.168.0.0/24".
+// This function turns an address like 192.168.0.124/24 into the network range 192.168.0.0/24.
 export function networkAddress(cidr) {
   const m = cidr.trim().match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\/(\d{1,2})$/);
   if (!m) return cidr.trim();

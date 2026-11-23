@@ -1,3 +1,4 @@
+// This function shows one summary box (a label and a number).
 export default function Tile({ label, value, tone, hint }) {
   return (
     <div className={`tile ${tone || ''}`}>

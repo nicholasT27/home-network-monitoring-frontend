@@ -1,5 +1,3 @@
-// Where the API lives: public/config.js (editable after deployment), else VITE_API_BASE_URL at build time,
-// else the same address as the dashboard.
 const BASE = (window.NETMON_API_BASE ?? import.meta.env.VITE_API_BASE_URL ?? '').replace(/\/$/, '');
 export const API_URL = `${BASE}/index.php`;
 const TOKEN_KEY = 'netmon_token';
@@ -7,13 +5,16 @@ const TOKEN_KEY = 'netmon_token';
 let onUnauthorized = () => {};
 export const setUnauthorizedHandler = (fn) => { onUnauthorized = fn; };
 
+// This function reads the saved login token.
 export function getToken() {
   try { return sessionStorage.getItem(TOKEN_KEY) || ''; } catch { return ''; }
 }
+// This function saves the login token (or removes it when signing out).
 export function setToken(token) {
-  try { token ? sessionStorage.setItem(TOKEN_KEY, token) : sessionStorage.removeItem(TOKEN_KEY); } catch { /* storage unavailable */ }
+  try { token ? sessionStorage.setItem(TOKEN_KEY, token) : sessionStorage.removeItem(TOKEN_KEY); } catch { }
 }
 
+// This function sends a request to the server and gives back its answer.
 async function request(action, { method = 'GET', body, params = {} } = {}) {
   const query = new URLSearchParams({ action, ...params });
   let res;

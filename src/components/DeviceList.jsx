@@ -3,11 +3,13 @@ import { Check, History, Pencil, ShieldOff, ShieldCheck, Trash2, X, Eye } from '
 import { api } from '../api.js';
 import { EVENT_TEXT, deviceName, fullTime, isPrivateMac, timeAgo } from '../format.js';
 
+// This function shows the small label that tells if a device is online, trusted or suspicious.
 function StatusBadge({ d }) {
   if (d.suspicious) return <span className="badge bad">Suspicious</span>;
   return d.status === 'trusted' ? <span className="badge ok">Trusted</span> : <span className="badge warn">Unknown</span>;
 }
 
+// This function shows the connection history of one device.
 function HistoryPanel({ mac }) {
   const [rows, setRows] = useState(null);
   const [error, setError] = useState('');
@@ -29,12 +31,14 @@ function HistoryPanel({ mac }) {
   );
 }
 
+// This function shows one device in the list, with its buttons.
 function Row({ d, onChange }) {
   const [editing, setEditing] = useState(false);
   const [label, setLabel] = useState(d.label || '');
   const [showHistory, setShowHistory] = useState(false);
   const [busy, setBusy] = useState(false);
 
+  // This function runs a button's action and refreshes the list.
   async function act(fn) {
     setBusy(true);
     try { await fn(); await onChange(); } catch (e) { alert(e.message); } finally { setBusy(false); }
@@ -88,6 +92,7 @@ const FILTERS = [
   ['all', 'All'], ['online', 'Online'], ['unknown', 'Unknown'], ['trusted', 'Trusted'], ['suspicious', 'Suspicious'],
 ];
 
+// This function shows all the devices.
 export default function DeviceList({ devices, onChange }) {
   const [filter, setFilter] = useState('all');
   const [q, setQ] = useState('');

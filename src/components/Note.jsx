@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-// A message that removes itself: 4 seconds for confirmations, 8 for errors (so they can be read).
+// This function shows a message that goes away by itself after a few seconds.
 export default function Note({ note, onDone }) {
   useEffect(() => {
     if (!note) return undefined;

@@ -4,6 +4,7 @@ import { fullTime, timeAgo } from '../format.js';
 
 const TITLES = { unknown_device: 'Unknown device', suspicious_device: 'Suspicious device', baseline: 'Initial scan complete' };
 
+// This function shows the open alerts.
 export default function AlertsPanel({ alerts, onChange }) {
   const ack = async (id) => { try { await api.ackAlert(id); await onChange(); } catch (e) { alert(e.message); } };
   return (
