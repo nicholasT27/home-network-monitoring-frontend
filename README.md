@@ -1,14 +1,14 @@
-# Home Network Monitor: Dashboard (frontend)
+# Home Networking Monitoring System: Dashboard (frontend)
 
 ![Dashboard](docs/images/08-new-unknown-device.png)
 
-The web dashboard of the Home Network Device Monitoring and Alert System. You sign in, see which devices are on your home network, mark the ones you recognise as **Trusted**, and get alerts when an **Unknown** device appears. The part that scans the network is in the [backend repository](https://github.com/nicholasT27/home-network-monitoring-backend).
+The web dashboard of the Home Networking Monitoring System. You sign in, see which devices are on your home network, mark the ones you recognise as **Trusted**, and get alerts when an **Unknown** device appears. The part that scans the network is in the [backend repository](https://github.com/nicholasT27/home-network-monitoring-backend).
 
 **Just want to use it?** Open the live dashboard: https://home-network-monitoring-frontend.pages.dev, then follow the **Steps for a new user** in the [backend README](https://github.com/nicholasT27/home-network-monitoring-backend#steps-for-a-new-user).
 
 ## About
 
-Most homes are set up once and never checked again, so the owner cannot tell when a new, unknown device joins the network. The **Home Network Device Monitoring and Alert System** finds the devices on a home network, tells the ones you know (**Trusted**) from the ones you do not (**Unknown**), and emails you when a new or suspicious device appears.
+Most homes are set up once and never checked again, so the owner cannot tell when a new, unknown device joins the network. The **Home Networking Monitoring System** finds the devices on a home network, tells the ones you know (**Trusted**) from the ones you do not (**Unknown**), and emails you when a new or suspicious device appears.
 
 This repository is the **dashboard**: the web page where you create an account, see your devices, click **Scan now**, trust your own devices, and read the alerts. The scanning and alert logic are in the [backend repository](https://github.com/nicholasT27/home-network-monitoring-backend).
 
